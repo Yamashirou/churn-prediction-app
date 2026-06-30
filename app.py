@@ -39,6 +39,17 @@ st.markdown("""
     .churn-box { padding: 20px; border-radius: 12px; text-align: center; font-size: 20px; font-weight: bold; }
     .churn-yes { background-color: #f8d7da; color: #842029; border: 2px solid #f5c2c7; }
     .churn-no  { background-color: #d1e7dd; color: #0f5132; border: 2px solid #badbcc; }
+
+    .rec-box {
+        background-color: #cfe2ff;
+        color: #084298 !important;
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #b6d4fe;
+        font-size: 14px;
+        min-height: 110px;
+    }
+    .rec-box b { color: #084298 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -285,15 +296,33 @@ st.subheader("💡 Rekomendasi Aksi")
 if prediction == 1:
     st.warning("Pelanggan ini berisiko churn. Pertimbangkan langkah berikut:")
     col_r1, col_r2, col_r3 = st.columns(3)
-    col_r1.info("🎁 **Tawarkan Diskon**\nBerikan promo atau voucher eksklusif untuk mempertahankan pelanggan.")
-    col_r2.info("📞 **Hubungi Langsung**\nLakukan outreach personal via email atau telepon untuk memahami kendala pelanggan.")
-    col_r3.info("⭐ **Upgrade Premium**\nTawarkan uji coba gratis paket premium untuk meningkatkan engagement.")
+    col_r1.markdown(
+        '<div class="rec-box">🎁 <b>Tawarkan Diskon</b><br>Berikan promo atau voucher eksklusif untuk mempertahankan pelanggan.</div>',
+        unsafe_allow_html=True
+    )
+    col_r2.markdown(
+        '<div class="rec-box">📞 <b>Hubungi Langsung</b><br>Lakukan outreach personal via email atau telepon untuk memahami kendala pelanggan.</div>',
+        unsafe_allow_html=True
+    )
+    col_r3.markdown(
+        '<div class="rec-box">⭐ <b>Upgrade Premium</b><br>Tawarkan uji coba gratis paket premium untuk meningkatkan engagement.</div>',
+        unsafe_allow_html=True
+    )
 else:
     st.success("Pelanggan ini diprediksi akan bertahan. Pertimbangkan langkah berikut:")
     col_r1, col_r2, col_r3 = st.columns(3)
-    col_r1.info("🚀 **Tingkatkan Engagement**\nKirim konten relevan dan personalisasi pengalaman pelanggan.")
-    col_r2.info("🎯 **Program Loyalitas**\nAjak pelanggan bergabung ke program rewards untuk memperkuat loyalitas.")
-    col_r3.info("📊 **Upselling**\nTawarkan produk atau layanan tambahan yang sesuai dengan profil pelanggan.")
+    col_r1.markdown(
+        '<div class="rec-box">🚀 <b>Tingkatkan Engagement</b><br>Kirim konten relevan dan personalisasi pengalaman pelanggan.</div>',
+        unsafe_allow_html=True
+    )
+    col_r2.markdown(
+        '<div class="rec-box">🎯 <b>Program Loyalitas</b><br>Ajak pelanggan bergabung ke program rewards untuk memperkuat loyalitas.</div>',
+        unsafe_allow_html=True
+    )
+    col_r3.markdown(
+        '<div class="rec-box">📊 <b>Upselling</b><br>Tawarkan produk atau layanan tambahan yang sesuai dengan profil pelanggan.</div>',
+        unsafe_allow_html=True
+    )
 
 st.divider()
 
