@@ -332,7 +332,7 @@ col_exp1, col_exp2 = st.columns(2)
 with col_exp1:
     with st.expander("📋 Data Input Pelanggan"):
         st.dataframe(
-            input_df.T.rename(columns={0: "Nilai"}),
+            input_df.T.rename(columns={0: "Nilai"}).astype(str),
             use_container_width=True
         )
 
