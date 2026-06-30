@@ -1,4 +1,4 @@
 [theme]
-base = "dark"
-backgroundColor = "#212529"
-textColor = "#f8f9fa"
+base = "light"
+backgroundColor = "#f8f9fa"
+textColor = "#212529"
