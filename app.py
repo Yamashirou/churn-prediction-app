@@ -125,20 +125,31 @@ def user_input():
 input_df = user_input()
 
 # ── Preprocessing Input ───────────────────────────────────────────────────────
-def preprocess_input(input_df, scaler, selected_features):
+def preprocess_input(input_df, all_columns, scaler, selected_features):
     df_in = input_df.copy()
-    
-    # Pastikan urutan kolom sama dengan saat training
-    df_in = df_in[selected_features]
-    
-    # Scaling
-    df_scaled = pd.DataFrame(
-        scaler.transform(df_in),
-        columns=selected_features
-    )
-    return df_scaled
 
-processed = preprocess_input(input_df, scaler, selected_features)
+    # Buat DataFrame kosong dengan semua 41 kolom training
+    df_full = pd.DataFrame(columns=all_columns)
+    df_full.loc[0] = 0  # isi semua dengan 0 dulu
+
+    # Masukkan nilai dari input user ke kolom yang sesuai
+    for col in df_in.columns:
+        if col in all_columns:
+            df_full[col] = df_in[col].values
+
+    # Pastikan tipe data numerik
+    df_full = df_full.astype(float)
+
+    # Scaling dengan 41 kolom (sesuai saat training)
+    df_scaled = pd.DataFrame(
+        scaler.transform(df_full),
+        columns=all_columns
+    )
+
+    # Ambil hanya 15 fitur terpilih
+    return df_scaled[selected_features]
+
+processed = preprocess_input(input_df, all_columns, scaler, selected_features)
 
 # ── Prediksi ──────────────────────────────────────────────────────────────────
 prediction    = model.predict(processed)[0]
