@@ -79,124 +79,66 @@ st.sidebar.header("🧾 Input Data Pelanggan")
 def user_input():
     with st.sidebar:
 
-        st.subheader("👤 Demografi")
-        gender  = st.selectbox("Gender",  category_options.get("gender",  ["Male", "Female"]))
-        age     = st.slider("Usia (Age)", 18, 80, 35)
-        country = st.selectbox("Negara",  category_options.get("country", ["USA"]))
-        city    = st.selectbox("Kota",    category_options.get("city",    ["New York"]))
+        st.subheader("📊 Data Transaksi")
+        total_spent     = st.number_input("Total Spent (USD)",       0.0, 20000.0, 500.0,  step=50.0)
+        avg_order_value = st.slider("Avg Order Value (USD)",         0.0,   200.0,  60.0,  step=1.0)
+        lifetime_value  = st.number_input("Lifetime Value (USD)",    0.0,  5000.0, 1200.0, step=100.0)
 
-        st.subheader("📦 Langganan & Akuisisi")
-        acquisition_channel = st.selectbox(
-            "Acquisition Channel",
-            category_options.get("acquisition_channel", ["Email"])
-        )
-        device_type = st.selectbox(
-            "Device Type",
-            category_options.get("device_type", ["Mobile"])
-        )
-        subscription_type = st.selectbox(
-            "Subscription Type",
-            category_options.get("subscription_type", ["Basic"])
-        )
-        is_premium_user = st.radio(
-            "Premium User?", [0, 1],
-            format_func=lambda x: "Ya" if x == 1 else "Tidak",
-            horizontal=True
-        )
+        st.subheader("🎧 Kepuasan & Layanan")
+        satisfaction_score  = st.slider("Satisfaction Score",    1.0, 5.0, 3.5, step=0.5)
+        support_tickets     = st.slider("Support Tickets",       0,   10,  2)
+        nps_score           = st.slider("NPS Score",             0,   10,  5)
+        delivery_delay_days = st.slider("Delivery Delay (hari)", 0,   15,  3)
 
-        st.subheader("🖱️ Aktivitas")
-        total_visits      = st.slider("Total Visits",              0,    50,   15)
-        avg_session_time  = st.slider("Avg Session Time (menit)",  0.0,  30.0,  8.0, step=0.5)
-        pages_per_session = st.slider("Pages per Session",         0.0,  15.0,  4.0, step=0.5)
+        st.subheader("🖱️ Aktivitas & Engagement")
+        total_visits               = st.slider("Total Visits",                  0,    50,   15)
+        avg_session_time           = st.slider("Avg Session Time (menit)",      0.0,  30.0,  8.0, step=0.5)
+        pages_per_session          = st.slider("Pages per Session",             0.0,  15.0,  4.0, step=0.5)
+        last_3_month_purchase_freq = st.slider("Purchase Freq (3 bln terakhir)", 0,   14,    7)
 
-        st.subheader("📧 Email Engagement")
+        st.subheader("📧 Email Marketing")
         email_open_rate  = st.slider("Email Open Rate",  0.0, 1.0, 0.50, step=0.01)
         email_click_rate = st.slider("Email Click Rate", 0.0, 0.5, 0.25, step=0.01)
 
-        st.subheader("💰 Transaksi")
-        total_spent     = st.number_input("Total Spent (USD)",      0.0, 20000.0,  500.0, step=50.0)
-        avg_order_value = st.slider("Avg Order Value (USD)",        0.0,   200.0,   60.0, step=1.0)
-        discount_used   = st.radio(
-            "Gunakan Diskon?", [0, 1],
-            format_func=lambda x: "Ya" if x == 1 else "Tidak",
-            horizontal=True
-        )
-        payment_method  = st.selectbox(
-            "Payment Method",
-            category_options.get("payment_method", ["Credit Card"])
-        )
-
-        st.subheader("🎧 Layanan & Kepuasan")
-        support_tickets      = st.slider("Support Tickets",        0,  10,   2)
-        refund_requested     = st.radio(
-            "Pernah Refund?", [0, 1],
-            format_func=lambda x: "Ya" if x == 1 else "Tidak",
-            horizontal=True
-        )
-        delivery_delay_days  = st.slider("Delivery Delay (hari)",  0,  15,   3)
-        satisfaction_score   = st.slider("Satisfaction Score",     1.0, 5.0, 3.5, step=0.5)
-        nps_score            = st.slider("NPS Score",              0,  10,   5)
-
-        st.subheader("📈 Marketing & Nilai")
-        marketing_spend_per_user   = st.slider("Marketing Spend / User (USD)", 5.0, 30.0, 17.0, step=0.5)
-        lifetime_value             = st.number_input("Lifetime Value (USD)",    0.0, 5000.0, 1200.0, step=100.0)
-        last_3_month_purchase_freq = st.slider("Purchase Freq (3 bln terakhir)", 0, 14, 7)
+        st.subheader("👤 Demografi & Marketing")
+        age                      = st.slider("Usia (Age)", 18, 80, 35)
+        marketing_spend_per_user = st.slider("Marketing Spend / User (USD)", 5.0, 30.0, 17.0, step=0.5)
 
     return pd.DataFrame([{
-        "gender"                    : gender,
-        "age"                       : age,
-        "country"                   : country,
-        "city"                      : city,
-        "acquisition_channel"       : acquisition_channel,
-        "device_type"               : device_type,
-        "subscription_type"         : subscription_type,
-        "is_premium_user"           : is_premium_user,
+        "total_spent"               : total_spent,
+        "avg_order_value"           : avg_order_value,
+        "lifetime_value"            : lifetime_value,
+        "satisfaction_score"        : satisfaction_score,
+        "support_tickets"           : support_tickets,
+        "nps_score"                 : nps_score,
+        "delivery_delay_days"       : delivery_delay_days,
         "total_visits"              : total_visits,
         "avg_session_time"          : avg_session_time,
         "pages_per_session"         : pages_per_session,
+        "last_3_month_purchase_freq": last_3_month_purchase_freq,
         "email_open_rate"           : email_open_rate,
         "email_click_rate"          : email_click_rate,
-        "total_spent"               : total_spent,
-        "avg_order_value"           : avg_order_value,
-        "discount_used"             : discount_used,
-        "support_tickets"           : support_tickets,
-        "refund_requested"          : refund_requested,
-        "delivery_delay_days"       : delivery_delay_days,
-        "payment_method"            : payment_method,
-        "satisfaction_score"        : satisfaction_score,
-        "nps_score"                 : nps_score,
+        "age"                       : age,
         "marketing_spend_per_user"  : marketing_spend_per_user,
-        "lifetime_value"            : lifetime_value,
-        "last_3_month_purchase_freq": last_3_month_purchase_freq,
     }])
 
 input_df = user_input()
 
 # ── Preprocessing Input ───────────────────────────────────────────────────────
-def preprocess_input(input_df, all_columns, scaler, selected_features):
+def preprocess_input(input_df, scaler, selected_features):
     df_in = input_df.copy()
+    
+    # Pastikan urutan kolom sama dengan saat training
+    df_in = df_in[selected_features]
+    
+    # Scaling
+    df_scaled = pd.DataFrame(
+        scaler.transform(df_in),
+        columns=selected_features
+    )
+    return df_scaled
 
-    cat_cols     = df_in.select_dtypes(include="object").columns.tolist()
-    binary_cats  = [c for c in cat_cols if df_in[c].nunique() <= 2]
-    nominal_cats = [c for c in cat_cols if df_in[c].nunique() > 2]
-
-    le = LabelEncoder()
-    for col in binary_cats:
-        df_in[col] = le.fit_transform(df_in[col].astype(str))
-
-    df_in = pd.get_dummies(df_in, columns=nominal_cats, drop_first=True)
-
-    # Selaraskan kolom dengan saat training
-    for col in all_columns:
-        if col not in df_in.columns:
-            df_in[col] = 0
-    df_in = df_in[all_columns]
-
-    # Scaling → Feature Selection
-    df_scaled = pd.DataFrame(scaler.transform(df_in), columns=all_columns)
-    return df_scaled[selected_features]
-
-processed = preprocess_input(input_df, all_columns, scaler, selected_features)
+processed = preprocess_input(input_df, scaler, selected_features)
 
 # ── Prediksi ──────────────────────────────────────────────────────────────────
 prediction    = model.predict(processed)[0]
